@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> URL Shortner </title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form action="/url" method="post">
+            <h2> <label> Paste the original url: </label> </h2>
+            <input type="text" name="url" placeholder="https://example.com">
+            <button type="submit"> Generate </button>
+        </form>
+    </div>
+
+    <% if(locals.shortId){ %>
+        <h3> URL Generated: <a href="http://127.0.0.1:8001/<%= shortId %>" target="_blank"> http://127.0.0.1:8001/<%= shortId %> </a></h3>
+    <% } %>
+
+    <% if(locals.urls){ %>
+        <table border="1px">
+            <thead>
+                <th> S. No. </th>
+                <th> Short URL </th>
+                <th> Original URL </th>
+                <th> Clicks </th>
+            </thead>
+            <tbody>
+                <% for(let i in urls){ %>
+                    <tr style="text-align: center;">
+                        <td> <%= parseInt(i) + 1 %> </td>
+                        <td> <a href="http://127.0.0.1:8001/<%= urls[i].shortId %>" target="_blank"> http://127.0.0.1:8001/<%= urls[i].shortId %> </a> </td>
+                        <td style="max-width: 800px; overflow: hidden;"> <a href="<%= urls[i].redirectURL %>" target="_blank"> <%= urls[i].redirectURL %> </a> </td>
+                        <td> <%= urls[i].visitHistory.length %> </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    <% } %>
+
+    <script>
+
+    </script>
+</body>
+</html>
